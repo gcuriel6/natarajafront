@@ -21,34 +21,42 @@ export async function login(email, password) {
       body,
     };
 
-    const res = await fetch(url, options)
+    try {
+      const res = await fetch(url, options)
     
-    const data = await res.json()
+      const data = await res.json()
+    
+          //if  no error, we set the cookies and redirect at the login screen
+      if(!data.error){
+        // cookies().set("token", data.token, { expires: 1/48 }); //expires in 30 mins
+        const user = data.message;
+        cookies().set("token", data.token);
 
-    //if  no error, we set the cookies and redirect at the login screen
-    if(!data.error){
-      // cookies().set("token", data.token, { expires: 1/48 }); //expires in 30 mins
-      const user = data.message;
-      cookies().set("token", data.token);
+        const logeado = new Date();
+        const refresh = new Date();
 
-      const logeado = new Date();
-      const refresh = new Date();
+        const json ={
+          nombre: user.nombres,
+          apellido: user.apellidos,
+          id: user.id,
+          perfil: user.id_perfil,
+          logeado,
+          refresh
+        }
 
-      const json ={
-        nombre: user.nombres,
-        apellido: user.apellidos,
-        id: user.id,
-        perfil: user.id_perfil,
-        logeado,
-        refresh
+        cookies().set("usuario", JSON.stringify(json));
+
+        redirect("/dashboard");
       }
-
-      cookies().set("usuario", JSON.stringify(json));
-
-      redirect("/dashboard");
-    }
+      
+      return data;
+    } catch (e) {
+      console.log("error en: "+url)
+      console.log(e)
+      const res = {error: true, message: e.message};
     
-    return data;
+      return res
+    }
 }
 
 export async function getCookies(name){
