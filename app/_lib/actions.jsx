@@ -1,6 +1,6 @@
 'use server'
 
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { revalidatePath } from 'next/cache'
 
@@ -9,7 +9,9 @@ const baseUrl = process.env.API_URL;
 export async function login(email, password) {
     const url = baseUrl + "/login";
 
-    const body = JSON.stringify({ email, password })
+    const body = JSON.stringify({ email, password });
+
+    let error = false;
 
     const options = {
       method: 'POST',
@@ -46,9 +48,8 @@ export async function login(email, password) {
 
         cookies().set("usuario", JSON.stringify(json));
 
-        const router = useRouter()
-        router.push("/dashboard")
-        // redirect("/dashboard");
+        // const router = useRouter()
+        // router.push("/dashboard")
       }
       
       return data;
@@ -56,8 +57,13 @@ export async function login(email, password) {
       console.log("error en: "+url)
       console.log(e)
       const res = {error: true, message: e.message};
+      error = true;
     
       return res
+    } finally {
+      if(!error){        
+        redirect("/dashboard");
+      }
     }
 }
 
@@ -67,9 +73,9 @@ export async function getCookies(name){
 
 export async function redirectUser(url){
   revalidatePath(url) // Update cached info
-  const router = useRouter()
-  router.push(url)
-  // redirect(url) // Navigate to the new URL
+  // const router = useRouter()
+  // router.push(url)
+  redirect(url) // Navigate to the new URL
 }
 
 export async function fetchRequest(url, method, params){
