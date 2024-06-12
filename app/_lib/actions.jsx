@@ -1,6 +1,6 @@
 'use server'
 
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { cookies } from "next/headers";
 import { revalidatePath } from 'next/cache'
 
@@ -46,7 +46,9 @@ export async function login(email, password) {
 
         cookies().set("usuario", JSON.stringify(json));
 
-        redirect("/dashboard");
+        const router = useRouter()
+        router.push("/dashboard")
+        // redirect("/dashboard");
       }
       
       return data;
@@ -65,7 +67,9 @@ export async function getCookies(name){
 
 export async function redirectUser(url){
   revalidatePath(url) // Update cached info
-  redirect(url) // Navigate to the new URL
+  const router = useRouter()
+  router.push(url)
+  // redirect(url) // Navigate to the new URL
 }
 
 export async function fetchRequest(url, method, params){
