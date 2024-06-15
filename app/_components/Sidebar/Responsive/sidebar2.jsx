@@ -19,7 +19,7 @@ export default async function Sidebar2() {
     return(
         <>
         {/* small sidebar */}
-        <div className="flex flex-col items-center w-16 h-full overflow-hidden text-gray-700 bg-gray-100 md:hidden rounded">
+        <div className="flex flex-col items-center w-16 h-full overflow-hidden text-gray-700 bg-gray-100 md:hidden rounded print:hidden">
             <a className="flex items-center justify-center mt-3" href="#">
                 <MenuLogo/>
             </a>

@@ -1,7 +1,7 @@
 export default function Cards() {
   return (
     <>
-                                {/* <div className="w-full sm:w-1/2 xl:w-1/3">
+                                <div className="w-full sm:w-1/2 xl:w-1/3">
                                 <div className="mb-4">
                                     <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
                                         <div className="flex items-center justify-between mb-6">
@@ -725,7 +725,7 @@ export default function Cards() {
                                         </ul>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
     </>
   )
 }

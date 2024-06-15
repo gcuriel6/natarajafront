@@ -4,6 +4,7 @@ import Datatable from "@/app/_components/Datatable/datatable";
 import { movimientoscolumns as columns } from "@/app/_components/Datatable/Columns/movimientos";
 import { fetchRequest } from "@/app/_lib/actions";
 import BotonNuevo from "./Botones/botonNuevo";
+import CardTotales from "./Cards/cardTotales";
 
 export default async function Page() {
 
@@ -13,7 +14,7 @@ export default async function Page() {
     if(usua.perfil == 2){ //perfil 2 (recepcion) no tiene derecho a ver movimientos
         
         console.log("No tiene derecho a ver movimientos")
-        return (<></>)
+        return (<BotonNuevo />)
     }
 
     const data = await fetchRequest("/movimientos", "GET", null);
@@ -31,6 +32,7 @@ export default async function Page() {
 
     return (
       <>
+        <CardTotales/>
         <Datatable
             data={movimientos}
             columns={columns}
