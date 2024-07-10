@@ -5,7 +5,7 @@ import Sidebar2 from "@/app/_components/Sidebar/Responsive/sidebar2";
 export default function Layout({children}) {
     return (
         <>
-            <main className="relative h-screen overflow-hidden bg-gray-100 dark:bg-gray-800 rounded-2xl">
+            <main className="relative h-screen bg-gray-100 dark:bg-gray-800 rounded-2xl">
                 <div className="flex items-start justify-between">
                     <div className="relative h-screen">
                         <Sidebar/>

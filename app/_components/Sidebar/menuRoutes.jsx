@@ -3,6 +3,7 @@
 import AlumnosIcon from "../Icons/alumnos";
 import DashboardIcon from "../Icons/dashboard";
 import DisciplinasIcon from "../Icons/disciplinas";
+import DocentesIcon from "../Icons/docentes";
 import MensualidadesIcon from "../Icons/mensualidades";
 import MovimientosIcon from "../Icons/movimientos";
 
@@ -32,4 +33,9 @@ export const MenuRoutes = [
         ruta:"/mensualidades",
         icono: <MensualidadesIcon/>,
     },
+    {
+        texto: "Docentes",
+        ruta:"/docentes",
+        icono: <DocentesIcon/>
+    }
   ];

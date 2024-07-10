@@ -20,6 +20,11 @@ export const movimientoscolumns = [
       sortable: true,
     },
     {
+      name: 'Fecha',
+      selector: row => row.fecha,
+      sortable: true,
+    },
+    {
       name: 'Tipo',
       selector: row => row.tipo,
       sortable: true,

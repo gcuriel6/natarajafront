@@ -20,6 +20,7 @@ export default async function BotonVerde(params) {
             const inputNacimiento = form[2];
             const inputTelefono = form[3];
             
+            //checkboxes Disciplinas
             const divCheckboxes = document.getElementById("divCheckboxes");
             const checkBoxesSelected = divCheckboxes.querySelectorAll('input[type="checkbox"]:checked');
             const checkboxValues = [];
@@ -27,6 +28,16 @@ export default async function BotonVerde(params) {
             for (let i = 0; i < checkBoxesSelected.length; i++) {
                 const checkbox = checkBoxesSelected[i];
                 checkboxValues.push(checkbox.value)
+            }
+
+            //checkboxes clases muestra
+            const divCheckboxes2 = document.getElementById("divCheckboxes2");
+            const checkBoxesSelected2 = divCheckboxes2.querySelectorAll('input[type="checkbox"]:checked');
+            const checkboxValues2 = [];
+
+            for (let i = 0; i < checkBoxesSelected2.length; i++) {
+                const checkbox = checkBoxesSelected2[i];
+                checkboxValues2.push(checkbox.value)
             }
 
             const inputs = [inputNombres, inputApelidos, inputNacimiento, inputTelefono];
@@ -57,7 +68,8 @@ export default async function BotonVerde(params) {
                 apellidos: inputApelidos.value,
                 nacimiento: inputNacimiento.value,
                 telefono: inputTelefono.value,
-                disciplinas: checkboxValues
+                disciplinas: checkboxValues,
+                muestras: checkboxValues2
             }
     
             const data = await fetchRequest(url, "POST", alumno);

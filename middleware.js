@@ -20,6 +20,8 @@ export default function customHeadersMiddleware(request) {
     "/movimientos/:id",
     "/mensualidades",
     "/mensualidades/:id",
+    "/docentes",
+    "/docentes/:id",
   ];
 
   //evaluando rutas publicas

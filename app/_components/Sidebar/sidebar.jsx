@@ -28,7 +28,7 @@ export default async function Sidebar() {
               {
                 MenuRoutes.map(route=>{
                   return (
-                      <MenuLink texto={route.texto} ruta={route.ruta} icono={route.icono} />
+                      <MenuLink key={route.texto + Math.random()} texto={route.texto} ruta={route.ruta} icono={route.icono} />
                   )
                 })
               }
