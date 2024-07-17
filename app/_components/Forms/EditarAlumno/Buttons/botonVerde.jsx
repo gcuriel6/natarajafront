@@ -1,6 +1,6 @@
 "use client"
 
-import { fetchRequest, redirectUser } from "@/app/_lib/actions";
+import { fetchRequest, redirectUser, getCookies } from "@/app/_lib/actions";
 
 export default async function BotonVerde(params) {
 
@@ -19,6 +19,9 @@ export default async function BotonVerde(params) {
             const inputApelidos = form[1];
             const inputNacimiento = form[2];
             const inputTelefono = form[3];
+            const inputInicio = form[4];
+            const inputFin = form[5];
+            const inputCantidad = form[6];
             
             //checkboxes Disciplinas
             const divCheckboxes = document.getElementById("divCheckboxes");
@@ -40,7 +43,7 @@ export default async function BotonVerde(params) {
                 checkboxValues2.push(checkbox.value)
             }
 
-            const inputs = [inputNombres, inputApelidos, inputNacimiento, inputTelefono];
+            const inputs = [inputNombres, inputApelidos, inputNacimiento, inputTelefono, inputInicio, inputFin, inputCantidad];
             let allGood = true;
 
             inputs.map(input=>{
@@ -60,16 +63,25 @@ export default async function BotonVerde(params) {
             }
 
             const url = "/alumnos";
+
+            const usuario = await getCookies("usuario");
+            const usua = JSON.parse(usuario);
     
             boton.disabled = true;
     
             const alumno = {
+                //campos para registrar alumno
                 nombres: inputNombres.value,
                 apellidos: inputApelidos.value,
                 nacimiento: inputNacimiento.value,
                 telefono: inputTelefono.value,
                 disciplinas: checkboxValues,
-                muestras: checkboxValues2
+                muestras: checkboxValues2,
+                //campos para mensualidad
+                cantidad: inputCantidad.value,
+                usuario: usua.id, //usuario que hizo el registro
+                inicio: inputInicio.value,
+                fin: inputFin.value
             }
     
             const data = await fetchRequest(url, "POST", alumno);

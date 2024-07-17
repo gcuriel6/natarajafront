@@ -15,13 +15,27 @@ async function handleChange(e){
     e.target.value = value
 }
 
+function toDateInputValue(dateObject){
+    return new Date(dateObject).toISOString().split('T')[0];
+};
+
 export default async function FormAlumno(params) {
 
     const id = params.id
+
+    const thisDate = new Date(); //today (In UTC timezone)
+    thisDate.setTime( thisDate.getTime() - thisDate.getTimezoneOffset()*60*1000 ); //Aqui se saca el timezone offset (6 horas) y se le resta
+    const thisYear = thisDate.getFullYear();  // returns the current year
+    const thisMonth = thisDate.getMonth(); //returns current month
+
+    const thisMonthDays = new Date(thisYear, thisMonth+1, 0).getDate(); //if we have 0 for the day it takes the previous months last day
+
     let alumno = {};
 
     if(params.id!=0){
         const data = await fetchRequest("/alumnos/"+id, "GET", null);
+
+        // document.getElementById("divInscripcion").style.display = "none";
 
         if(data.error){
             return (
@@ -58,28 +72,58 @@ export default async function FormAlumno(params) {
                 <hr/>
                 <div className="space-y-6 bg-white">
                     <div className="items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0">
-                        <h2 className="max-w-sm mx-auto md:w-1/4">
+                        {/* <h2 className="max-w-sm mx-auto md:w-1/4">
                             Información Personal
-                        </h2>
+                        </h2> */}
                         <div className="max-w-sm mx-auto space-y-5 md:w-3/4">
                             <div>
                                 <div className=" relative ">
+                                    <h6>Nombres</h6>
                                     <InputText nombre={"user-nombres"} clase={inputsClass} placeholder={"Nombres"} default={alumno.nombres}/>
                                 </div>
                             </div>
                             <div>
                                 <div className=" relative ">
+                                    <h6>Apellidos</h6>
                                     <InputText nombre={"user-apellidos"} clase={inputsClass} placeholder={"Apellidos"} default={alumno.apellidos}/>
                                 </div>
                             </div>
                             <div>
                                 <div className=" relative ">
+                                    <h6>Fecha de Nacimiento</h6>
                                     <InputDate nombre={"user-nacimiento"} clase={inputsClass} default={alumno.nacimiento}/>
                                 </div>
                             </div>
                             <div>
                                 <div className=" relative ">
+                                    <h6>Telefono</h6>
                                     <InputText nombre={"user-telefono"} clase={inputsClass} placeholder={"Telefono"} default={alumno.telefono}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div className="items-center w-full p-4 space-y-4 text-gray-500 md:inline-flex md:space-y-0" id="divInscripcion" style={{ display: id!=0 ? "none":"block" }}>
+                        {/* <h2 className="max-w-sm mx-auto md:w-1/4">
+                            Inscripción
+                        </h2> */}
+                        <div className="max-w-sm mx-auto space-y-5 md:w-3/4">
+                            <div>
+                                <div className=" relative ">
+                                    <h6>Fecha de Inicio (desde)</h6>
+                                    <InputDate nombre={"user-inicio"} clase={inputsClass} default={toDateInputValue(thisDate)}/>
+                                </div>
+                            </div>
+                            <div>
+                                <div className=" relative ">
+                                    <h6>Fecha Fin (hasta)</h6>
+                                    <InputDate nombre={"user-fin"} clase={inputsClass} default={toDateInputValue(thisDate.setDate(thisDate.getDate() + thisMonthDays))}/>
+                                </div>
+                            </div>
+                            <div>
+                                <div className=" relative ">
+                                    <h6>Cantidad (sin inscripcion)</h6>
+                                    <InputText nombre={"user-cantidad"} clase={inputsClass} placeholder={"Cantidad"} default={""}/>
                                 </div>
                             </div>
                         </div>

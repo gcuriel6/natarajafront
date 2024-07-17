@@ -110,3 +110,20 @@ export async function fetchRequest(url, method, params){
 
 
 }
+
+export async function obtenerFecha() {
+  // var invdate = new Date(date.toLocaleString('en-US', {
+  //   timeZone: ianatz
+  // }));
+
+  // // and the diff is 5 hours
+  // var diff = date.getTime() - invdate.getTime();
+
+  // // so 12:00 in Toronto is 17:00 UTC
+  // return new Date(date.getTime() - diff); // needs to substract
+
+  const thisDate = new Date(); //today (In UTC timezone)
+  thisDate.setTime( thisDate.getTime() - thisDate.getTimezoneOffset()*60*1000 ); //Aqui se saca el timezone offset (6 horas) y se le resta
+  return thisDate;
+
+}
