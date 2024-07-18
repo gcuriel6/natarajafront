@@ -16,7 +16,7 @@ export default async function Calendar(params) {
             const birthday = new Date(alum.nacimiento);
             const bdayMonth = birthday.getMonth()+1;
             const month = ("0"+bdayMonth).slice(-2);
-            const bdayDay = birthday.getDay();
+            const bdayDay = birthday.getDate();
             const day = ("0"+bdayDay).slice(-2);
             const year = new Date().getFullYear();
 
