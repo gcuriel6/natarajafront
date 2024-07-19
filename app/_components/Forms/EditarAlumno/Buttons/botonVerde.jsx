@@ -15,13 +15,16 @@ export default async function BotonVerde(params) {
             const goodInputs="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent";
             const badInputs="rounded-lg flex-1 appearance-none border-2 border-red-600 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent";
             
+            //inputs informacion de alumno
             const inputNombres = form[0];
             const inputApelidos = form[1];
             const inputNacimiento = form[2];
             const inputTelefono = form[3];
+            //inputs informacion de inscripcion y mensualidad
             const inputInicio = form[4];
             const inputFin = form[5];
-            const inputCantidad = form[6];
+            const inputCantidad = form[7];
+            const ignorarInscri = document.getElementById("ignorarInscri").checked;
             
             //checkboxes Disciplinas
             const divCheckboxes = document.getElementById("divCheckboxes");
@@ -43,6 +46,7 @@ export default async function BotonVerde(params) {
                 checkboxValues2.push(checkbox.value)
             }
 
+            //todos los inputs en un arreglo para evaluar si fueron llenados correctamente
             const inputs = [inputNombres, inputApelidos, inputNacimiento, inputTelefono, inputInicio, inputFin, inputCantidad];
             let allGood = true;
 
@@ -58,6 +62,7 @@ export default async function BotonVerde(params) {
                 }
             });
 
+            //Si algun input no fue llenado correctamente no se procede con el guardado
             if(!allGood){
                 return
             }
@@ -81,7 +86,8 @@ export default async function BotonVerde(params) {
                 cantidad: inputCantidad.value,
                 usuario: usua.id, //usuario que hizo el registro
                 inicio: inputInicio.value,
-                fin: inputFin.value
+                fin: inputFin.value,
+                ignorarInscri
             }
     
             const data = await fetchRequest(url, "POST", alumno);

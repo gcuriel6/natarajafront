@@ -121,6 +121,24 @@ export default async function FormAlumno(params) {
                                 </div>
                             </div>
                             <div>
+                                {/* Checkbox para que no se cobre inscripcion */}
+                                <div>
+                                    <label className="flex items-center mb-3 space-x-3">
+                                        <input
+                                            type="checkbox"
+                                            name={"ignorarInscri"}
+                                            id={"ignorarInscri"}
+                                            className={"form-tick appearance-none bg-white bg-check h-6 w-6 border border-gray-300 rounded-md checked:bg-pink-500 checked:border-transparent focus:outline-none"}
+                                            value={""}
+                                            defaultChecked={false}
+                                        />
+                                        <span className="font-normal text-gray-700 dark:text-white">
+                                            {"Sin Inscripción"}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
                                 <div className=" relative ">
                                     <h6>Cantidad (sin inscripcion)</h6>
                                     <InputText nombre={"user-cantidad"} clase={inputsClass} placeholder={"Cantidad"} default={""}/>

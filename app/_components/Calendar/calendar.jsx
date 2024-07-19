@@ -14,19 +14,44 @@ export default async function Calendar(params) {
         if(alum.nacimiento != null){
 
             const birthday = new Date(alum.nacimiento);
-            const bdayMonth = birthday.getMonth()+1;
-            const month = ("0"+bdayMonth).slice(-2);
-            const bdayDay = birthday.getDate();
-            const day = ("0"+bdayDay).slice(-2);
             const year = new Date().getFullYear();
+            birthday.setFullYear(year);
+            // const bdayMonth = birthday.getMonth()+1;
+            // const month = ("0"+bdayMonth).slice(-2);
+            // const bdayDay = birthday.getDate();
+            // const day = ("0"+bdayDay).slice(-2);
+            // const year = new Date().getFullYear();
 
-            const date = year+"-"+month+"-"+day;
+            const date = birthday.toISOString().split("T")[0];
 
             events.push({
-                title: alum.nombres + " " + alum.apellidos,
+                title: "Birthday: "+alum.nombres + " " + alum.apellidos,
                 date,
                 color: "purple"
             })
+        }
+    })
+
+    params.anivs.map(alum=>{
+        if(alum.registro != null){
+
+            const registro = new Date(alum.registro);
+            const firstYear = registro.getFullYear();
+            const currentYear = new Date().getFullYear();
+
+            const diferencia = currentYear - firstYear;
+
+            if(diferencia > 0){
+                registro.setFullYear(currentYear);
+
+                const date = registro.toISOString().split("T")[0];
+    
+                events.push({
+                    title: "Aniv "+diferencia+" año: "+alum.nombres + " " + alum.apellidos,
+                    date,
+                    color: "blue"
+                })
+            }            
         }
     })
 
@@ -54,7 +79,7 @@ export default async function Calendar(params) {
             }
 
             events.push({
-                title: vig.nombres + " " + vig.apellidos,
+                title: "MensTermina: "+vig.nombres + " " + vig.apellidos,
                 date: vig.fin,
                 color,
                 textColor

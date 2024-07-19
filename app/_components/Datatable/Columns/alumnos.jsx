@@ -24,6 +24,16 @@ export const alumnoscolumns = [
       sortable: true,
     },
     {
+      name: 'Registro',
+      selector: row => row.registro,
+      sortable: true,
+    },
+    {
+      name: 'DiaPago',
+      selector: row => row.diaPago,
+      sortable: true,
+    },
+    {
       name: "Editar",
       cell: row => (
         <Link href={"/alumnos/"+row.id}>
