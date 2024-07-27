@@ -18,6 +18,8 @@ export default async function Page({params}) {
 
     const alumnos = data.message;
 
+    const disciplina = alumnos[0].nombre;
+
     return (
         <>
             <Suspense>
@@ -25,6 +27,9 @@ export default async function Page({params}) {
                     <BotonPrint/>
                     <table className="table p-4 bg-white rounded-lg shadow print:w-full">
                         <thead>
+                            <tr>
+                                <th colSpan={"2"} className="border-b-2 p-4 dark:border-dark-5 whitespace-nowrap text-gray-900">{disciplina}</th>
+                            </tr>
                             <tr>
                                 <th className="border-b-2 p-4 dark:border-dark-5 whitespace-nowrap font-normal text-gray-900">
                                     Nombre
